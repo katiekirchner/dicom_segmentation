@@ -1,15 +1,236 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>DICOM Organ Segmentation</title>
+	<head>
+		<title>DICOM Organ Segmentation</title>
 		<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="./css/style.css">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+        
+	</head>
+	<body>
+      <div class="top">
+          <h1 class="font h1">Abdominal Organ Segmentation</h1> 
+      </div>
 
-<body>
-  <h1 class="top-banner"> Teeeest </h1>
-</body>
+      <div class="black-container" style="background-image: url(images/scan.gif);">
+        <!-- <div class="black-child-div">
+              <img class="example-pic" src="images/scan.gif">
+          </div> -->
 
+          <div class="white-child-div">
+              <p class="font paragraph-text">
+                  Exploring biomedical imaging and analysis techniques, this project utilizes  
+                  segmentation methods to extract internal organs from a series of CT scans and subsequently
+                  generate 3D models of the segmented organs. 
+              </p>
+
+              <p class="font paragraph-text">
+                  Using data from 
+                      <a href="https://www.cancerimagingarchive.net/" target="_blank" >Cancer Imaging Archive (TCIA) </a>
+                  the technology used for this project includes Python, ThreeJS, NumPy, SciPy,  
+                      <a href="https://itk.org/" target="_blank" >Insight Toolkit (ITK),</a>
+                  and 
+                      <a href="https://vtk.org/" target="_blank" > Visual Toolkit (VTK)</a>
+              </p>
+
+              <p class="font paragraph-text">       
+                  <a href="https://github.com/katiekirchner/dicom_segmentation/blob/master/segmentation.py" target="_blank">
+                      GitHub Repo
+                  </a>
+              </p>
+          </div>
+       </div>
+
+
+       <div class="white-container" style="background-image: url(images/shades.png);">
+          <div class="black-child-div">
+              <p class="font paragraph-text">
+                Starting with a DICOM dataset of a 56 year old male patient from April 24, 2000, 
+                first step involved extracting voxel data from the DICOM dataset.
+
+                Iterating through each slice of the CT scans, each slice was translated into a NumPy 
+                matrix and subsequently stored into a list containing a NumPy matrix representation of every 
+                image in the DICOM series, and then convert into 
+                
+                <a href="https://en.wikipedia.org/wiki/Hounsfield_scale" target="_blank">
+                    Hounsfield Units (HU).
+                </a>
+              </p>
+
+              <p class="font paragraph-text">
+                  From the extracted and converted data of all the scans, information such as the max, 
+                  min, mean, standard deviation, and extreme values of the voxel data was then calculated.
+                  With that, the next step was normalizing the data, by adjusting the values of the NumPy matrix 
+                  and obtaining images with higher contrast and detail, shown in the adjacent image.
+              </p>
+
+
+              <p class="font paragraph-text">
+                  With the data from each slice of the entire CT scan series represented as a normalized NumPy matrix, 
+                  the next step was to run each CT slice through the segmentation process.
+              </p>
+          </div>
+
+          <!-- <div class="white-child-div">
+            <img class="example-pic"  src="images/shades.png">
+          </div> -->
+      </div>
+
+
+      <div class="black-container" style="background-image: url(images/seg.png);">
+        <!-- <div class="black-child-div">
+          <img class="example-pic" src="images/seg.png">
+        </div> -->
+
+  
+        <div class="white-child-div">
+            <p class="font paragraph-text">
+                Utilizing functionalities from the Skimage library, the segmentation process for
+                each CT slice started with creating a threshold image from the original image. 
+                To create the threshold image, a threshold value was determined by calculating the mean value 
+                of the NumPy array, and then recreated the original image by representing each pixel as 
+                either black represented as 0, or white represented as 1, contingent upon if the original 
+                pixel value was greater than the threshold value.
+            </p>
+
+            <p class="font paragraph-text">
+                After generating a threshold image, further processing to be cleaned was required,
+                which was done by first eroding the image to remove anomalies and objects smaller than 
+                the structuring element. After erosion, the threshold image was dilated, which filled 
+                broken areas and created higher definition of borders.
+            </p>
+
+            <p class="font paragraph-text">
+                With the cleaned threshold image, the next step was creating a distance map of the
+                original image, which was done by calculating each non-zero, or non-background, pixel’s distance from 
+                to the nearest zero, or background. Next, an array containing the coordinates of local peaks 
+                (maxima) by dilating the original image and merging neighboring local maxima closer than the 
+                size of the dilation, was created.
+
+            </p>
+
+            <p class="font paragraph-text">
+                The final step of the segmentation process was to take the threshold image, distance map, and maxima,
+                and perform a watershed segmentation, which floods basins from the markers until basins attributed 
+                to different markers meet on watershed lines, creating a segmented image of the original image. 
+                The results of each step along with the final segmented image are shown in the paired image.
+            </p>
+        </div>
+      </div>
+
+      <div class="white-container" style="background-image: url(images/centroid.gif);">
+        <div class="black-child-div">
+            <p class="font paragraph-text">
+              After segmenting the image, utilizing Skimage's RegionProps functionality and analyzing each segmented region
+              allowed for a list of properties and attributes for each region of the image to be generated. Among the list of
+              obtained attributes were two crucial properties, size and the centroid coordinate of each segmented region. With 
+              each slice of the CT scan, individual organs could be identified and tracked throughout the collective series 
+              of images from the centroid coordinate of each segmented region. An 
+
+              <a href=" https://stackoverflow.com/questions/57395048/combining-dynamic-labels-regions-python-scikit-image" target="_blank">
+                animated example
+              </a>
+              of aligning and tracking each centroid coordinate while iterating through a series of is images is shown in the animation.
+                  
+            </p>
+
+            <p class="font paragraph-text">
+              For each segmented region of every slice in the CT scan, the centroid coordinate was aligned from slice to slice,
+              and as the individual organs were tracked throughout the series of scans, the size of each segmentation was collected and tallied. 
+              From accumulating the size of each segmented region, a total size of each organ was able to be determined, and 
+              using the 
+              <a href="https://en.wikipedia.org/wiki/Marching_cubes#:~:text=Marching%20cubes%20is%20a%20computer,(sometimes%20called%20a%20voxel).&text=An%20analogous%20two%2Ddimensional%20method%20is%20called%20the%20marching%20squares%20algorithm." target="_blank">
+                  Marching Cubes Algorithm,
+              </a>
+              a mesh for 3D visualization of several organs was created.
+            </p>
+        </div>
+
+        <!-- <div class="white-child-div">
+          <img class="example-pic"  src="images/centroid.gif">
+        </div> -->
+
+      </div>
+
+
+
+      <div id="test" class="grey-container" >
+       
+
+      </div>
+      <!-- <script src="https://cdn.coursesaver.com/three.js-74/examples/js/loaders/STLLoader.js"></script> -->
+
+      <script type="module">
+
+        const elem = document.getElementById('test');
+
+        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+        import * as STLLoader from 'https://unpkg.com/three@0.91.0/examples/js/loaders/STLLoader.js'
+      
+        const scene = new THREE.Scene();
+        // const stl = new STLLoader;
+
+        console.log(STLLoader)
+
+        // var degree = Math.PI/180;
+
+        // // Setup
+        // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        // var renderer = new THREE.WebGLRenderer();
+
+        // renderer.setSize(elem.innerWidth, elem.innerHeight);
+        // elem.appendChild(renderer.domElement);
+
+ 
+        // // Ground (comment out line: "scene.add( plane );" if Ground is not needed...)
+        // var plane = new THREE.Mesh(
+        //     new THREE.PlaneBufferGeometry(500, 500 ),
+        //     new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
+        // );
+        // plane.rotation.x = -90 * degree;
+        // plane.position.y = 0;
+        // scene.add( plane );
+        // plane.receiveShadow = true;
+
+        // // ASCII file - STL Import
+        // var loader = new THREE.STLLoader();
+        // // loader.load( './stl/1.stl', function ( geometry ) {
+        // //     var material = new THREE.MeshLambertMaterial( { color: 0xFFFFFF, specular: 0x111111, shininess: 200 } );
+        // //     var mesh = new THREE.Mesh( geometry, material );
+        // //     mesh.position.set( 0, 0, 0);
+        // //     scene.add( mesh );
+        // // } );
+
+        // // Binary files - STL Import
+        // loader.load( './images/liver.stl', function ( geometry ) {
+        //     var material = new THREE.MeshLambertMaterial( { color: 0xFFFFFF, specular: 0x111111, shininess: 200 } );
+        //     var mesh = new THREE.Mesh( geometry, material );
+        //     mesh.position.set( 0, 20, 0);
+        //     scene.add( mesh );
+        // } );
+
+        // // Camera positioning
+        // camera.position.z = 100;
+        // camera.position.y = 100;
+        // camera.rotation.x = -45 * degree;
+
+        // // Ambient light (necessary for Phong/Lambert-materials, not for Basic)
+        // var ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        // scene.add(ambientLight);
+
+        // // Draw scene
+        // var render = function () {
+        //     renderer.render(scene, camera);
+        // };
+
+
+
+      
+      </script>
+	</body>
 </html>
+
+
+
+

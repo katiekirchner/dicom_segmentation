@@ -1,5 +1,104 @@
-
-.top-banner{
-  color: green;
-  font-size: 60px;
+body{
+  width: 100vw;
+  margin: 0;
 }
+
+
+.font{
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+}
+
+.top{
+    width: 101vw;
+    height: 100vh;
+    background-image: url("../images/cts.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+.h1{
+    margin-top: 40vh;
+    width: 100vw;
+    background-color: black;
+    opacity: .8;
+    font-weight: 300;
+    text-align: center;
+    font-size: 5em;
+    color: white;
+    position: absolute;
+}
+
+
+
+
+.black-container {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  height: auto;
+  min-height: 700px;
+  width: 100vw;
+  max-width: 100vw;
+  padding: 50px 20px;
+  margin: 0;
+  /* padding: 25px;  */
+
+  background-position: 94%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 45vw;
+}
+
+.white-container {
+  background-color: white;
+  color: black;
+  display: inline-block;
+  height: auto;
+  min-height: 700px;
+
+  width: 100vw;
+  max-width: 100vw;
+  padding: 50px 20px;
+  background-position: 5%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 45vw;
+}
+
+
+.grey-container {
+  background-color: rgb(61, 61, 61);
+  color: black;
+  display: inline-block;
+  height: 50vw;
+  width: 100vw;
+  max-width: 100vw;
+  /* padding: 20px;  */
+}
+
+
+
+.black-child-div{
+  width: 45%;
+  float: right;
+  color: black;
+  margin-right: 30px;
+}
+
+.white-child-div{
+  width: 45%;
+  color: white;
+  margin-left: 30px;
+
+  /* margin: 10; */
+}
+
+.paragraph-text{
+  margin: 20px 15px;
+  font-size: 1.6em;
+  text-align: left;
+}
+
