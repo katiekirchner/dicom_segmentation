@@ -27,15 +27,15 @@
 
               <p class="font paragraph-text">
                   Using data from 
-                      <a href="https://www.cancerimagingarchive.net/" target="_blank" >Cancer Imaging Archive (TCIA) </a>
+                      <a class="link"  href="https://www.cancerimagingarchive.net/" target="_blank" >Cancer Imaging Archive (TCIA) </a>
                   the technology used for this project includes Python, ThreeJS, NumPy, SciPy,  
-                      <a href="https://itk.org/" target="_blank" >Insight Toolkit (ITK),</a>
+                      <a class="link"  href="https://itk.org/" target="_blank" >Insight Toolkit (ITK),</a>
                   and 
-                      <a href="https://vtk.org/" target="_blank" > Visual Toolkit (VTK)</a>
+                      <a class="link"  href="https://vtk.org/" target="_blank" > Visual Toolkit (VTK)</a>
               </p>
 
               <p class="font paragraph-text">       
-                  <a href="https://github.com/katiekirchner/dicom_segmentation/blob/master/segmentation.py" target="_blank">
+                  <a class="link"  href="https://github.com/katiekirchner/dicom_segmentation/blob/master/segmentation.py" target="_blank">
                       GitHub Repo
                   </a>
               </p>
@@ -53,7 +53,7 @@
                 matrix and subsequently stored into a list containing a NumPy matrix representation of every 
                 image in the DICOM series, and then convert into 
                 
-                <a href="https://en.wikipedia.org/wiki/Hounsfield_scale" target="_blank">
+                <a class="link" href="https://en.wikipedia.org/wiki/Hounsfield_scale" target="_blank">
                     Hounsfield Units (HU).
                 </a>
               </p>
@@ -128,7 +128,7 @@
               each slice of the CT scan, individual organs could be identified and tracked throughout the collective series 
               of images from the centroid coordinate of each segmented region. An 
 
-              <a href=" https://stackoverflow.com/questions/57395048/combining-dynamic-labels-regions-python-scikit-image" target="_blank">
+              <a class="link" href=" https://stackoverflow.com/questions/57395048/combining-dynamic-labels-regions-python-scikit-image" target="_blank">
                 animated example
               </a>
               of aligning and tracking each centroid coordinate while iterating through a series of is images is shown in the animation.
@@ -140,7 +140,7 @@
               and as the individual organs were tracked throughout the series of scans, the size of each segmentation was collected and tallied. 
               From accumulating the size of each segmented region, a total size of each organ was able to be determined, and 
               using the 
-              <a href="https://en.wikipedia.org/wiki/Marching_cubes#:~:text=Marching%20cubes%20is%20a%20computer,(sometimes%20called%20a%20voxel).&text=An%20analogous%20two%2Ddimensional%20method%20is%20called%20the%20marching%20squares%20algorithm." target="_blank">
+              <a class="link"  href="https://en.wikipedia.org/wiki/Marching_cubes#:~:text=Marching%20cubes%20is%20a%20computer,(sometimes%20called%20a%20voxel).&text=An%20analogous%20two%2Ddimensional%20method%20is%20called%20the%20marching%20squares%20algorithm." target="_blank">
                   Marching Cubes Algorithm,
               </a>
               a mesh for 3D visualization of several organs was created.
@@ -155,23 +155,34 @@
 
 
 
-      <div id="test" class="grey-container" >
-       
+      <div id="test" class="grey-container" ></div>
 
-      </div>
-      <!-- <script src="https://cdn.coursesaver.com/three.js-74/examples/js/loaders/STLLoader.js"></script> -->
+      <script src="./bundle.js"></script>
+      <script crossorigin="anonymous">
 
-      <script type="module">
+          const elem = document.getElementById('test');
+          var THREE = require('three')
+          var STLLoader = require('three-stl-loader')(THREE)
 
-        const elem = document.getElementById('test');
+          var loader = new STLLoader()
 
-        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
-        import * as STLLoader from 'https://unpkg.com/three@0.91.0/examples/js/loaders/STLLoader.js'
+          console.log("here ",loader)
+
+          loader.load('./images/liver.stl', function (geometry) {
+            var material = new THREE.MeshNormalMaterial()
+            var mesh = new THREE.Mesh(geometry, material)
+            scene.add(mesh)
+          })
+
+        // const elem = document.getElementById('test');
+
+        // import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+        // import * as STLLoader from 'https://unpkg.com/three@0.91.0/examples/js/loaders/STLLoader.js'
       
-        const scene = new THREE.Scene();
-        // const stl = new STLLoader;
+        // const scene = new THREE.Scene();
+        // // const stl = new STLLoader;
 
-        console.log(STLLoader)
+        // console.log(STLLoader)
 
         // var degree = Math.PI/180;
 

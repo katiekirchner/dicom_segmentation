@@ -39,17 +39,13 @@ body{
   color: white;
   display: inline-block;
   height: auto;
-  min-height: 700px;
   width: 100vw;
   max-width: 100vw;
-  padding: 50px 20px;
-  margin: 0;
-  /* padding: 25px;  */
-
+  padding: 80px 20px;
   background-position: 94%;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 45vw;
+  background-size: 38%;
 }
 
 .white-container {
@@ -57,15 +53,13 @@ body{
   color: black;
   display: inline-block;
   height: auto;
-  min-height: 700px;
-
   width: 100vw;
   max-width: 100vw;
-  padding: 50px 20px;
+  padding: 85px 20px;
   background-position: 5%;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 45vw;
+  background-size: 39%;
 }
 
 
@@ -98,7 +92,10 @@ body{
 
 .paragraph-text{
   margin: 20px 15px;
-  font-size: 1.6em;
+  font-size: 1.5em;
   text-align: left;
 }
 
+.link{
+  color: rgb(126, 155, 194);
+}
