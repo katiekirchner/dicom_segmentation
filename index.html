@@ -146,11 +146,6 @@
               a mesh for 3D visualization of several organs was created.
             </p>
         </div>
-
-        <!-- <div class="white-child-div">
-          <img class="example-pic"  src="images/centroid.gif">
-        </div> -->
-
       </div>
 
 
@@ -160,19 +155,49 @@
       <script src="./bundle.js"></script>
       <script crossorigin="anonymous">
 
-          const elem = document.getElementById('test');
+          var elem = document.getElementById('test');
           var THREE = require('three')
           var STLLoader = require('three-stl-loader')(THREE)
 
+          var scene = new THREE.Scene();
+          var renderer = new THREE.WebGLRenderer();
+          var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
           var loader = new STLLoader()
+          var degree = Math.PI/180;
 
-          console.log("here ",loader)
+          console.log("here ",scene, loader)
 
+
+          renderer.setSize(500, 500);
+          elem.appendChild(renderer.domElement);
+
+          // var plane = new THREE.Mesh(
+          //     new THREE.PlaneBufferGeometry(500, 500 ),
+          //     new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
+          // );
+
+          // plane.rotation.x = -90 * degree;
+          // plane.position.y = 0;
+          // plane.receiveShadow = true;
           loader.load('./images/liver.stl', function (geometry) {
-            var material = new THREE.MeshNormalMaterial()
-            var mesh = new THREE.Mesh(geometry, material)
-            scene.add(mesh)
+              var material = new THREE.MeshNormalMaterial()
+              var mesh = new THREE.Mesh(geometry, material)
+              scene.add(mesh)
           })
+
+          var render = function () {
+            console.log("render")
+            renderer.render(scene, camera);
+          };
+
+
+          render();
+
+          // loader.load('./images/liver.stl', function (geometry) {
+          //   var material = new THREE.MeshNormalMaterial()
+          //   var mesh = new THREE.Mesh(geometry, material)
+          //   scene.add(mesh)
+          // })
 
         // const elem = document.getElementById('test');
 
