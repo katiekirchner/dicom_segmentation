@@ -150,120 +150,17 @@
 
 
 
-      <div id="test" class="grey-container" ></div>
-
-      <script src="./bundle.js"></script>
-      <script crossorigin="anonymous">
-
-          var elem = document.getElementById('test');
-          var THREE = require('three')
-          var STLLoader = require('three-stl-loader')(THREE)
-
-          var scene = new THREE.Scene();
-          var renderer = new THREE.WebGLRenderer();
-          var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-          var loader = new STLLoader()
-          var degree = Math.PI/180;
-
-          console.log("here ",scene, loader)
+      <div id="test" class="grey-container" >
 
 
-          renderer.setSize(500, 500);
-          elem.appendChild(renderer.domElement);
+      </div>
 
-          // var plane = new THREE.Mesh(
-          //     new THREE.PlaneBufferGeometry(500, 500 ),
-          //     new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
-          // );
+      <!-- <script src="./bundle.js"></script> -->
+      <script src="http://threejs.org/build/three.min.js"></script>
 
-          // plane.rotation.x = -90 * degree;
-          // plane.position.y = 0;
-          // plane.receiveShadow = true;
-          loader.load('./images/liver.stl', function (geometry) {
-              var material = new THREE.MeshNormalMaterial()
-              var mesh = new THREE.Mesh(geometry, material)
-              scene.add(mesh)
-          })
+      <script src="http://threejs.org/examples/js/loaders/STLLoader.js"></script>
 
-          var render = function () {
-            console.log("render")
-            renderer.render(scene, camera);
-          };
-
-
-          render();
-
-          // loader.load('./images/liver.stl', function (geometry) {
-          //   var material = new THREE.MeshNormalMaterial()
-          //   var mesh = new THREE.Mesh(geometry, material)
-          //   scene.add(mesh)
-          // })
-
-        // const elem = document.getElementById('test');
-
-        // import * as THREE from 'https://unpkg.com/three/build/three.module.js';
-        // import * as STLLoader from 'https://unpkg.com/three@0.91.0/examples/js/loaders/STLLoader.js'
-      
-        // const scene = new THREE.Scene();
-        // // const stl = new STLLoader;
-
-        // console.log(STLLoader)
-
-        // var degree = Math.PI/180;
-
-        // // Setup
-        // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        // var renderer = new THREE.WebGLRenderer();
-
-        // renderer.setSize(elem.innerWidth, elem.innerHeight);
-        // elem.appendChild(renderer.domElement);
-
- 
-        // // Ground (comment out line: "scene.add( plane );" if Ground is not needed...)
-        // var plane = new THREE.Mesh(
-        //     new THREE.PlaneBufferGeometry(500, 500 ),
-        //     new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
-        // );
-        // plane.rotation.x = -90 * degree;
-        // plane.position.y = 0;
-        // scene.add( plane );
-        // plane.receiveShadow = true;
-
-        // // ASCII file - STL Import
-        // var loader = new THREE.STLLoader();
-        // // loader.load( './stl/1.stl', function ( geometry ) {
-        // //     var material = new THREE.MeshLambertMaterial( { color: 0xFFFFFF, specular: 0x111111, shininess: 200 } );
-        // //     var mesh = new THREE.Mesh( geometry, material );
-        // //     mesh.position.set( 0, 0, 0);
-        // //     scene.add( mesh );
-        // // } );
-
-        // // Binary files - STL Import
-        // loader.load( './images/liver.stl', function ( geometry ) {
-        //     var material = new THREE.MeshLambertMaterial( { color: 0xFFFFFF, specular: 0x111111, shininess: 200 } );
-        //     var mesh = new THREE.Mesh( geometry, material );
-        //     mesh.position.set( 0, 20, 0);
-        //     scene.add( mesh );
-        // } );
-
-        // // Camera positioning
-        // camera.position.z = 100;
-        // camera.position.y = 100;
-        // camera.rotation.x = -45 * degree;
-
-        // // Ambient light (necessary for Phong/Lambert-materials, not for Basic)
-        // var ambientLight = new THREE.AmbientLight(0xffffff, 1);
-        // scene.add(ambientLight);
-
-        // // Draw scene
-        // var render = function () {
-        //     renderer.render(scene, camera);
-        // };
-
-
-
-      
-      </script>
+      <script src="./stl_renders.js"></script>
 	</body>
 </html>
 

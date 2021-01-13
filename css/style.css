@@ -67,10 +67,10 @@ body{
   background-color: rgb(61, 61, 61);
   color: black;
   display: inline-block;
-  height: 50vw;
+  height: auto;
   width: 100vw;
   max-width: 100vw;
-  /* padding: 20px;  */
+  padding: 10px; 
 }
 
 
